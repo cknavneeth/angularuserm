@@ -3,7 +3,9 @@ const mongoose=require('mongoose')
 const path=require('path')
 const dotenv=require('dotenv')
 const userRoutes=require('./routes/user')
+const adminRoutes=require('./routes/admin')
 const cors=require('cors')
+const bcrypt=require('bcryptjs')
 
 
 dotenv.config({path:'.env'})
@@ -29,8 +31,16 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use(express.static('public'))
 
+async function hashPassword() {
+    const hashedPassword = await bcrypt.hash('adminpassword123', 10);
+    console.log('Hashed Password:', hashedPassword); // Copy this and paste it into MongoDB
+}
+
+hashPassword();
+
 app.use(cors({origin:'http://localhost:4200'}))
 app.use('/',userRoutes)
+app.use('/admin',adminRoutes)
  
 app.listen(PORT,function(){
     console.log('server is in run')
