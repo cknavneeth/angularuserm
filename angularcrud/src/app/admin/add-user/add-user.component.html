@@ -1,0 +1,28 @@
+<div>
+    <div>
+        <button (click)="closeModal()">X</button>
+    </div>
+    <form [formGroup]="adminaddform" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="">name</label>
+            <input type="text" formControlName="name">
+        </div>
+        <div>
+            <label for="">email</label>
+            <input type="email" formControlName="email">
+        </div>
+        <div>
+            <label for="">password</label>
+            <input type="text" formControlName="password">
+        </div>
+        <div>
+            <label for="">confirmpassword</label>
+            <input type="text" formControlName="confirmPassword">
+        </div>
+        <div>
+            <button type="submit">submit</button>
+        </div>
+
+    </form>
+   
+</div>

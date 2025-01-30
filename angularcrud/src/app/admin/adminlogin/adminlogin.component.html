@@ -1,0 +1,22 @@
+<div>
+    <h1>admin login regitration</h1>
+</div>
+<div>
+    <form [formGroup]="adminloginform" (ngSubmit)="onSubmit()">
+        <div>
+            <p>{{error$ | async}}</p>
+            <div>
+                <label for="">email</label>
+                <input type="email" formControlName="email">
+            </div>
+            <div>
+                <label for="">password</label>
+                <input type="password" formControlName="password">
+            </div>
+            <div>
+                <button type="submit">now login</button>
+            </div>
+        </div>
+       
+    </form>
+</div>

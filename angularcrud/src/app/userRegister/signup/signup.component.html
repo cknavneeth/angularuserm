@@ -1,0 +1,64 @@
+<div>
+    <div>
+        <h1>Registration application</h1>
+    </div>
+    <div>
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+            <div>
+                 <p>
+                <mat-form-field appearance="fill">
+                  <mat-label>Name:</mat-label>
+                  <input matInput placeholder="Placeholder" formControlName="name">
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                  <mat-hint>Hint</mat-hint>
+                </mat-form-field>
+              </p>
+                <div class="error-message" *ngIf="registrationForm.get('name')?.hasError('required')&&registrationForm.get('name')?.touched">
+                    name is mandotory
+                </div>
+            </div>
+
+           
+           
+
+          <div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" formControlName="email" required>
+            </div>
+            <div class="error-message"*ngIf="registrationForm.get('email')?.hasError('required')&&registrationForm.get('email')?.touched">
+                email is required
+
+            </div>
+          </div>
+           
+
+          <div>
+            <div>
+                <label for="password">password</label>
+                <input type="text" formControlName="password" required>
+            </div>
+            <div class="error-message"*ngIf="registrationForm.get('password')?.hasError('required')&&registrationForm.get('password')?.touched">
+                email is required
+            </div>
+          </div>
+           
+          <div>
+            <div>
+                <label for="cpassword">confirm password</label>
+                <input type="text" formControlName="cpassword" required>
+            </div>
+            <div class="error-message"*ngIf="registrationForm.get('cpassword')?.hasError('required')&&registrationForm.get('cpassword')?.touched">
+                email is required
+            </div>
+          </div>
+
+          <div>
+            <button type="submit">
+                Register
+            </button>
+          </div>
+        </form>
+    </div>
+</div>
