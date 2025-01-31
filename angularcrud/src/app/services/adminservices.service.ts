@@ -28,4 +28,15 @@ export class AdminservicesService {
 
   }
 
+  editUser(user:{_id:string,name:string,email:string,password:string}){
+      console.log('edit cheyyanulla call varum')
+      return this.http.put(`${this.api}/edituser`,user)
+  }
+
+  deleteUser(email:string){
+    console.log('service for delete')
+    return this.http.put(`${this.api}/deleteuser`,{email})
+  }
+
+  
 }

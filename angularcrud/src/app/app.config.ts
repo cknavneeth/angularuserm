@@ -27,6 +27,6 @@ export const appConfig: ApplicationConfig = {
     provideEffects(UserEffect),
     provideEffects(AdminEffect),
     { provide: JWT_OPTIONS, useValue: { tokenGetter } },
-    { provide: JwtHelperService, useClass: JwtHelperService }
+    { provide: JwtHelperService, useClass: JwtHelperService }, provideAnimationsAsync()
   ],
 };

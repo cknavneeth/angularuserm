@@ -32,8 +32,10 @@
             <td>{{user.email}}</td>
             <td>
                 <div>
-                    <button>edit</button>
-                    <button>delete</button>
+                    <button (click)="editUser(user)">edit</button>
+                    <!-- <button (click)="deleteUser(user.email)">delete</button> -->
+                    <button mat-button color="warn" (click)="openDeleteConfirmation(user.email)">Delete</button>
+
                 </div>
             </td>
         </tr>
@@ -47,3 +49,4 @@
 </div>
 <!-- <app-app-user (closeModalEvent)="closeAddUser($event)" *ngIf="addUsershowmodal"></app-app-user> -->
 <app-add-user (closeModalEvent)="closeAddUser( $event )" *ngIf="addUsershowmodal"></app-add-user>
+<app-edit-user *ngIf="editUsershowmodal" [currentUser]="usertoEdit" (closeModalEvent)="closeEditUser( $event )"></app-edit-user>

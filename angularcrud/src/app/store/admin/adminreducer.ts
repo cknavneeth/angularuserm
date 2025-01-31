@@ -44,6 +44,28 @@ export const adminReducer=createReducer(
         return {
             ...state,error
         }
+    }),
+    on(actions.editUserSuccess,(state,{user})=>{
+        return {
+            ...state,user
+        }
+    }),
+    on(actions.editUserFailure,(state,{error})=>{
+        return {
+            ...state,error
+        }
+    }),
+    on(actions.deleteUserSuccess,(state,{email})=>{
+        return {
+            ...state,
+            users:state.users.filter((item)=>item.email!==email)
+           
+        }
+    }),
+    on(actions.deleteUserFailure,(state,{error})=>{
+        return {
+            ...state,error
+        }
     })
 
 )

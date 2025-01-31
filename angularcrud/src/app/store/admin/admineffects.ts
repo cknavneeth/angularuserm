@@ -80,4 +80,30 @@ export class AdminEffect {
   )
 
 
+
+  editUser$=createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.editUser),
+      mergeMap((action)=>{
+        return this.adminService.editUser(action.user).pipe(
+          map((editeduser:any)=>actions.editUserSuccess({user:editeduser})),
+          catchError((err)=>of(actions.editUserFailure({error:err})))
+        )
+      })
+    )
+  )
+
+
+  deleteUser$=createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.deleteUser),
+      mergeMap((action)=>{
+        return this.adminService.deleteUser(action.email).pipe(
+          map((response:any)=>actions.deleteUserSuccess({email:response.email})),
+          catchError((err)=>of(actions.deleteUserFailure({error:err})))
+        )
+      })
+    )
+  )
+
 }

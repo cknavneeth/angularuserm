@@ -1,1 +1,26 @@
-<p>edit-user works!</p>
+<div>
+    <p>Edit user form </p>
+</div>
+<div>
+    <div>
+        <form [formGroup]="edituserform" (ngSubmit)="onSubmit()">
+            <div>
+                <div>
+                    <label for="">name</label>
+                    <input type="text" formControlName="name" >
+                </div>
+                <div>
+                    <label for="">email</label>
+                    <input type="email" formControlName="email">
+                </div>
+                <!-- <div>
+                    <label for="">password</label>
+                    <input type="text" formControlName="password">
+                </div> -->
+                <div>
+                    <button type="submit">submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

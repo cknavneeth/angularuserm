@@ -78,3 +78,48 @@ exports.addusers=async(req,res)=>{
         return res.status(500).json({success:false,message:'entho patti'})
     }
 }
+
+
+
+exports.editUser=async(req,res)=>{
+    console.log('miraaaa')
+    try {
+        console.log('edit cheyyan olla call backil vannu')
+        const {_id,email,password,name}=req.body
+        console.log(req.body,'kittitund')
+
+        const updateUser=await User.findByIdAndUpdate(_id,{
+            name,
+            email,
+            password
+        },{new:true})
+
+        if(!updateUser){
+            return res.status(400).json({success:false,message:'user not found'})
+        }
+        res.json(updateUser)
+        } catch (error) {
+        
+            return res.status(500).json({success:false,message:"something went wrong"})
+    }
+}
+
+
+exports.deleteUser=async(req,res)=>{
+    try {
+        const {email}=req.body
+        console.log(email)
+        if(!email){
+            return res.status(400).json({success:false,message:'email not found'})
+        }
+
+        const removedUser=await User.findOneAndDelete({email})
+        if(removedUser){
+            return res.status(200).json({removedUser})
+        }else{
+            return res.status(400).json({success:false,message:'user not found'})
+        }
+    } catch (error) {
+        return res.status(500).json({success:false,message:'something went wrong'})
+    }
+}

@@ -10,4 +10,8 @@ adminroot.get('/dashboard',foradmin.getallusers)
 
 adminroot.post('/adduser',foradmin.addusers)
 
+adminroot.put('/edituser',foradmin.editUser)
+
+adminroot.put('/deleteuser',foradmin.deleteUser)
+
 module.exports=adminroot
