@@ -1,3 +1,12 @@
+<div>
+    <input 
+    type="text" 
+    placeholder="Search for name and email..." 
+    (input)="onSearch($event)">
+  </div>
+  
+
+
 <div *ngIf="loading | async">
 
 </div>
@@ -26,7 +35,7 @@
             </tr>
         </thead>
     </table>
-    <tbody *ngIf="(users | async) as userList; else noUser">
+    <tbody *ngIf="(filteredUser$ | async) as userList; else noUser">
         <tr *ngFor="let user of userList">
             <td>{{user.name}}</td>
             <td>{{user.email}}</td>

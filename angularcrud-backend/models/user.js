@@ -18,7 +18,10 @@ const userSchema = new mongoose.Schema({
   cpassword:{
     type:String,
     required:false
-  }
+  },
+  profileImage: {
+    type: String // Add this field
+}
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -90,3 +90,47 @@ exports.loginRegister=async(req,res)=>{
          return res.status(500).json({status:false,message:'internal server error'})
     }
 }
+
+
+
+exports.saveProfileImage = async (req, res) => {
+    try {
+        const { email, profileImage } = req.body;
+        
+        if (!email || !profileImage) {
+            return res.status(400).json({ error: 'Missing email or profileImage' });
+        }
+
+        // Update user profile image in MongoDB
+        const result = await User.findOneAndUpdate(
+            { email },
+            { profileImage },
+            { new: true, upsert: true } // Upsert creates a new entry if not found
+        );
+
+        res.json({ message: 'Profile image URL saved successfully', user: result });
+    } catch (error) {
+        console.error('Error saving image:', error);
+        res.status(500).json({ error: 'Server error while saving image' });
+    }
+};
+
+exports.getprofile=async (req, res) => {
+    try {
+        const { email } = req.query;
+        if (!email) {
+            return res.status(400).json({ error: 'Email is required' });
+        }
+
+        const user = await User.findOne({ email });
+
+        if (!user || !user.profileImage) {
+            return res.status(404).json({ error: 'Profile image not found' });
+        }
+
+        res.json({ profileImage: user.profileImage });
+    } catch (error) {
+        console.error('Error fetching image:', error);
+        res.status(500).json({ error: 'Server error while fetching image' });
+    }
+};
