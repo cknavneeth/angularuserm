@@ -9,17 +9,19 @@ import { AdmindashboardComponent } from './admin/admindashboard/admindashboard.c
 export const routes: Routes = [
    {
     path:'signup',
-    component:SignupComponent
+    component:SignupComponent,
+    canActivate:[authorizing]
    },
    {
     path:'login',
     component:LoginComponent,
-    canActivate:[authorizing]
+    canActivate:[authorizing] 
    },
    {
       path:'home',
       component:HomeComponent,
-      canActivate:[isNotAuth]
+      // canActivate:[isNotAuth]
+      
    },
    {
       path:'admin/login',

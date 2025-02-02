@@ -1,4 +1,17 @@
-<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex flex-col items-center justify-center p-8 relative">
+<!-- <div class="min-h-scren bg-gradient-to-br rom-gray-900 via-gray-800 to-gray-900 text-white flex flex-col items-center justify-center p-8 relative"> -->
+
+
+   
+    <div class="min-h-screen bg-cover bg-center bg-no-repeat bg-[url('https://images.unsplash.com/photo-1737069222401-afd3720775ae?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] text-white flex flex-col items-center justify-center p-8 relative">
+
+    <div class="absolute top-8 left-8">
+        <button 
+          (click)="logOut()"
+          class="bg-red-600 hover:bg-red-500 text-white font-bold px-5 py-2 rounded-full flex items-center gap-2 shadow-lg transition-all duration-300 transform hover:scale-110"
+        >
+          <span class="material-icons">logout</span> Logout
+        </button>
+      </div>
   
     <!-- Profile Image at Top Right -->
     <div class="absolute top-8 right-8">
@@ -13,8 +26,8 @@
   
     <!-- Welcome Message -->
     <div class="text-center">
-      <h1 class="text-5xl font-extrabold text-indigo-400 tracking-wide">Welcome Home Dear!</h1>
-      <p class="text-lg text-gray-300 mt-3 italic">Glad to have you back.</p>
+      <h1 class="text-5xl font-extrabold text-black-400 tracking-wide">Welcome Home Dear!</h1>
+      <p class="text-lg text-white-300 mt-3 italic">Glad to have you back.</p>
     </div>
   
     <!-- User Email Display -->
@@ -23,7 +36,7 @@
       <p class="text-lg text-gray-300 mt-2 tracking-wide">{{userEmail}}</p>
     </div>
   
-    <h1 class="text-lg text-yellow-400 mt-6 font-medium tracking-wide uppercase">Make it more personal with a profile picture</h1>
+    <h1 class="text-lg text-white-400 mt-6 font-medium tracking-wide uppercase">Make it more personal with a profile picture</h1>
   
     <!-- File Upload Section -->
     <div class="mt-6 flex flex-col items-center gap-5">

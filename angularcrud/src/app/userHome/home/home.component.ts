@@ -4,6 +4,8 @@ import { CloudinaryserviceService } from '../../services/cloudinaryservice.servi
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environment/environment';
 import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { userLogout } from '../../store/action';
 
 
 @Component({
@@ -19,6 +21,7 @@ export class HomeComponent implements OnInit{
   uploadedImageUrl: string | null = null; 
   private cloudinaryService = inject(CloudinaryserviceService);
   private http = inject(HttpClient);
+  private store=inject(Store)
  
  
 
@@ -94,6 +97,11 @@ export class HomeComponent implements OnInit{
         console.error('Error saving profile image URL to MongoDB:', error.error || error);
       }
     );
+  }
+
+
+  logOut(){
+    this.store.dispatch(userLogout())
   }
 
   

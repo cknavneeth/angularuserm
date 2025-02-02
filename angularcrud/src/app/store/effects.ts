@@ -17,7 +17,8 @@ export class UserEffect {
       switchMap((action) =>
         this.loginservice.signupUser(action.user).pipe(
           map((data) => {
-            localStorage.setItem('token', data.token);
+            // localStorage.setItem('token', data.token);
+            console.log('signup token',data.token)
             return actions.userRegistrationSuccess({ user: data.user });
           }),
           catchError((err) => of(actions.userRegistrationError({ error: err })))

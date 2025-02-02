@@ -50,7 +50,7 @@ console.log('controller is called')
               email,
               password:hashedPassword
           },
-          token
+        //   token
        })
   
     } catch (error) {
