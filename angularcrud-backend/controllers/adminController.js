@@ -55,7 +55,7 @@ exports.addusers=async(req,res)=>{
         const user=await User.findOne({email:email})
         if(user){
             console.log('user exists')
-            return res.status(400).json({success:false,message:'allah'})
+            return res.status(400).json({success:false,message:'This email already exists'})
         }
 
         const salt=10

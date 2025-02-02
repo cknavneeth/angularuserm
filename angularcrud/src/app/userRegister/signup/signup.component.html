@@ -1,64 +1,66 @@
-<div>
-    <div>
-        <h1>Registration application</h1>
-    </div>
-    <div>
-        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+<div class="min-h-screen flex items-center justify-center bg-gray-900 p-6">
+  <div class="bg-gray-800 rounded-lg shadow-lg p-8 w-full max-w-md">
+      <h1 class="text-2xl font-bold text-white mb-6 text-center">Signup Form</h1>
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
 
-            <div>
-                 <p>
-                <mat-form-field appearance="fill">
-                  <mat-label>Name:</mat-label>
-                  <input matInput placeholder="Placeholder" formControlName="name">
-                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-                  <mat-hint>Hint</mat-hint>
-                </mat-form-field>
-              </p>
-                <div class="error-message" *ngIf="registrationForm.get('name')?.hasError('required')&&registrationForm.get('name')?.touched">
-                    name is mandotory
-                </div>
-            </div>
-
-           
-           
-
-          <div>
-            <div>
-                <label for="email">Email</label>
-                <input type="email" formControlName="email" required>
-            </div>
-            <div class="error-message"*ngIf="registrationForm.get('email')?.hasError('required')&&registrationForm.get('email')?.touched">
-                email is required
-
-            </div>
-          </div>
-           
-
-          <div>
-            <div>
-                <label for="password">password</label>
-                <input type="text" formControlName="password" required>
-            </div>
-            <div class="error-message"*ngIf="registrationForm.get('password')?.hasError('required')&&registrationForm.get('password')?.touched">
-                email is required
-            </div>
-          </div>
-           
-          <div>
-            <div>
-                <label for="cpassword">confirm password</label>
-                <input type="text" formControlName="cpassword" required>
-            </div>
-            <div class="error-message"*ngIf="registrationForm.get('cpassword')?.hasError('required')&&registrationForm.get('cpassword')?.touched">
-                email is required
+          <div class="mb-4">
+              <mat-form-field appearance="fill" class="w-full">
+                <mat-label class="text-gray-400">Name:</mat-label>
+                  <input matInput placeholder="Enter your name" formControlName="name" required class="bg-gray-700 text-white placeholder-gray-400">
+                  <mat-icon matSuffix class="text-gray-400">sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+              <div class="text-red-500 text-sm mt-1" *ngIf="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched">
+                <span *ngIf="registrationForm.get('name')?.hasError('required')">Name is required</span>
+                <span *ngIf="registrationForm.get('name')?.hasError('minlength')">Name must be at least 3 characters</span>
             </div>
           </div>
 
-          <div>
-            <button type="submit">
-                Register
-            </button>
+          <div class="mb-4">
+              <mat-form-field appearance="fill" class="w-full">
+                  <mat-label class="text-gray-400">Email:</mat-label>
+                  <input matInput placeholder="Enter your email" formControlName="email" class="bg-gray-700 text-white placeholder-gray-400">
+                  <mat-icon matSuffix class="text-gray-400">sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+              <div class="text-red-500 text-sm mt-1" *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
+                <span *ngIf="registrationForm.get('email')?.hasError('required')">Email is required</span>
+                <span *ngIf="registrationForm.get('email')?.hasError('email')">Invalid email format</span>
+            </div>
           </div>
-        </form>
-    </div>
+
+          <div class="mb-4">
+              <mat-form-field appearance="fill" class="w-full">
+                  <mat-label class="text-gray-400">Password:</mat-label>
+                  <input matInput placeholder="Enter your password" formControlName="password" required type="password" class="bg-gray-700 text-white placeholder-gray-400">
+                  <mat-icon matSuffix class="text-gray-400">sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+              <div class="text-red-500 text-sm mt-1" *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
+                <span *ngIf="registrationForm.get('password')?.hasError('required')">Password is required</span>
+                <span *ngIf="registrationForm.get('password')?.hasError('pattern')">Password must have at least 8 characters, including a letter and a number</span>
+            </div>
+          </div>
+
+          <div class="mb-4">
+              <mat-form-field appearance="fill" class="w-full">
+                  <mat-label class="text-gray-400">Confirm Password:</mat-label>
+                  <input matInput placeholder="Confirm your password" formControlName="cpassword" type="password" class="bg-gray-700 text-white placeholder-gray-400">
+                  <mat-icon matSuffix class="text-gray-400">sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+              <div class="text-red-500 text-sm mt-1" *ngIf="registrationForm.get('cpassword')?.invalid && registrationForm.get('cpassword')?.touched">
+                <span *ngIf="registrationForm.get('cpassword')?.hasError('required')">Confirm Password is required</span>
+            </div>
+            <div class="text-red-500 text-sm mt-1" *ngIf="registrationForm.get('cpassword')?.hasError('notSame') && registrationForm.get('cpassword')?.touched">
+              Passwords do not match
+          </div>
+          
+          </div>
+
+          <div>
+            <button type="submit" [disabled]="registrationForm.invalid" 
+       class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-gray-500">
+       Register
+</button>
+<p class="text-gray-600">fill all the required fields for register</p>
+          </div>
+      </form>
+  </div>
 </div>

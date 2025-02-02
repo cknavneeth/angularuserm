@@ -27,7 +27,6 @@ export class AdminloginComponent implements OnInit{
   onSubmit(){
     console.log('hello hello', this.adminloginform.value)
     if(this.adminloginform.valid){
-      alert('ayyoooo')
       const {email,password}=this.adminloginform.value
       console.log(email,password)
       this.store.dispatch(adminLogin({admin:{email,password}}))

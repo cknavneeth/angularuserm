@@ -1,61 +1,82 @@
-<div>
-    <input 
-    type="text" 
-    placeholder="Search for name and email..." 
-    (input)="onSearch($event)">
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-8">
+  
+    <!-- Search Bar -->
+    <div class="mb-6 flex justify-between items-center">
+      <input 
+        type="text" 
+        placeholder="Search for name and email..." 
+        (input)="onSearch($event)"
+        class="w-full max-w-lg px-4 py-2 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all duration-300 shadow-lg placeholder-gray-400"
+      />
+      <button 
+        (click)="addUser()"
+        class="ml-4 px-4 py-2 bg-green-600 hover:bg-green-500 text-white font-semibold rounded-md transition-all duration-300 transform hover:scale-105 shadow-md flex items-center gap-2"
+      >
+        <span class="material-icons">person_add</span> Add New User
+      </button>
+    </div>
+  
+    <!-- Loading State -->
+    <div *ngIf="loading | async" class="text-center text-indigo-400 text-lg animate-pulse">
+      Loading data...
+    </div>
+  
+    <!-- Admin Dashboard Title -->
+    <h1 class="text-3xl font-bold text-indigo-400 text-center mb-6">Admin Dashboard</h1>
+  
+    <!-- Error Handling -->
+    <div *ngIf="error | async as error" class="bg-red-500 text-white p-4 rounded-md shadow-md text-center">
+      <p class="text-lg">{{ error }}</p>
+      <button 
+        (click)="ngOnInit()" 
+        class="mt-2 px-4 py-2 bg-gray-900 hover:bg-gray-700 text-white font-semibold rounded-md transition-all duration-300 shadow-md"
+      >
+        Retry
+      </button>
+    </div>
+  
+    <!-- Users Table -->
+    <div *ngIf="!(error | async)">
+      <div class="overflow-x-auto bg-gray-800 p-6 rounded-lg shadow-lg">
+        <table class="w-full text-left border-collapse border border-gray-700">
+          <thead>
+            <tr class="bg-gray-700 text-gray-300">
+              <th class="py-3 px-6 border-b border-gray-600">Name</th>
+              <th class="py-3 px-6 border-b border-gray-600">Email</th>
+              <th class="py-3 px-6 border-b border-gray-600">Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="(filteredUser$ | async) as userList; else noUser">
+            <tr *ngFor="let user of userList" class="hover:bg-gray-700 transition-all duration-200">
+              <td class="py-3 px-6 border-b border-gray-600">{{ user.name }}</td>
+              <td class="py-3 px-6 border-b border-gray-600">{{ user.email }}</td>
+              <td class="py-3 px-6 border-b border-gray-600 flex gap-4">
+                <button 
+                  (click)="editUser(user)" 
+                  class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-md transition-all duration-300 transform hover:scale-105 shadow-md flex items-center gap-2"
+                >
+                  <span class="material-icons">edit</span> Edit
+                </button>
+                <button 
+                  (click)="openDeleteConfirmation(user.email)" 
+                  class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-md transition-all duration-300 transform hover:scale-105 shadow-md flex items-center gap-2"
+                >
+                  <span class="material-icons">delete</span> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- No Users Message -->
+        <ng-template #noUser>
+          <p class="text-center text-gray-400 py-4">No users found.</p>
+        </ng-template>
+      </div>
+    </div>
+  
+    <!-- Modals for Adding & Editing Users -->
+    <app-add-user (closeModalEvent)="closeAddUser($event)" *ngIf="addUsershowmodal"></app-add-user>
+    <app-edit-user *ngIf="editUsershowmodal" [currentUser]="usertoEdit" (closeModalEvent)="closeEditUser($event)"></app-edit-user>
+  
   </div>
   
-
-
-<div *ngIf="loading | async">
-
-</div>
-<h1>this is dashboard for admin</h1>
-
-
-<div *ngIf="error | async as error">
-    <p>{{error}}</p>
-    <button (click)="ngOnInit()">retry</button>
-</div>
-
-
-
-<div *ngIf="!(error | async)">
-    <div>
-        <button (click)="addUser()">
-            add new user
-        </button>
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>name</th>
-                <th>email</th>
-                <th>action</th>
-            </tr>
-        </thead>
-    </table>
-    <tbody *ngIf="(filteredUser$ | async) as userList; else noUser">
-        <tr *ngFor="let user of userList">
-            <td>{{user.name}}</td>
-            <td>{{user.email}}</td>
-            <td>
-                <div>
-                    <button (click)="editUser(user)">edit</button>
-                    <!-- <button (click)="deleteUser(user.email)">delete</button> -->
-                    <button mat-button color="warn" (click)="openDeleteConfirmation(user.email)">Delete</button>
-
-                </div>
-            </td>
-        </tr>
-        
-    </tbody>
-
-    <ng-template #noUser>
-        <p>no users found</p>
-    </ng-template>
-    
-</div>
-<!-- <app-app-user (closeModalEvent)="closeAddUser($event)" *ngIf="addUsershowmodal"></app-app-user> -->
-<app-add-user (closeModalEvent)="closeAddUser( $event )" *ngIf="addUsershowmodal"></app-add-user>
-<app-edit-user *ngIf="editUsershowmodal" [currentUser]="usertoEdit" (closeModalEvent)="closeEditUser( $event )"></app-edit-user>

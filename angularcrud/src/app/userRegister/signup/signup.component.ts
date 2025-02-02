@@ -65,13 +65,31 @@ export class SignupComponent implements OnInit {
   }
 
   //creating a validator to match passwords
-  checkPasswords: ValidatorFn = (
-    group: AbstractControl
-  ): { [key: string]: boolean } | null => {
+  // checkPasswords: ValidatorFn = (
+  //   group: AbstractControl
+  // ): { [key: string]: boolean } | null => {
+  //   const password = group.get('password')?.value;
+  //   const cpassword = group.get('cpassword')?.value;
+  //   if(password!==cpassword){
+  //     group.get('cpassword')?.setErrors({notSame:true})
+  //   }
+  //   else{
+  //     group.get('cpassword')?.setErrors(null)
+  //   }
+  // };
+  checkPasswords: ValidatorFn = (group: AbstractControl): null => {
     const password = group.get('password')?.value;
     const cpassword = group.get('cpassword')?.value;
-    return password === cpassword ? null : { notSame: true };
-  };
+
+    if (password !== cpassword) {
+        group.get('cpassword')?.setErrors({ notSame: true }); // Set error only on "cpassword"
+    } else {
+        group.get('cpassword')?.setErrors(null); // Clear error if passwords match
+    }
+    
+    return null; // Don't return an error for the form group
+};
+
 
   onSubmit() {
     console.log('lll');

@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { IUser } from '../../../shared/usermodel';
 import { editUser, getallusers } from '../../store/admin/adminaction';
 import { Store } from '@ngrx/store';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-user',
-  imports: [FormsModule,ReactiveFormsModule],
+  imports: [FormsModule,ReactiveFormsModule,CommonModule],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.scss'
 })
@@ -20,8 +21,8 @@ export class EditUserComponent implements OnInit{
 
   constructor(private fb:FormBuilder ,private store:Store){
     this.edituserform=this.fb.group({
-      name:['',[Validators.required]],
-      email:['',[Validators.required]],
+      name:['',[Validators.required,Validators.minLength(3)]],
+      email:['',[Validators.required,Validators.email]],
     })
   }
 

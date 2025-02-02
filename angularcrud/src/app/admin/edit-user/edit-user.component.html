@@ -1,26 +1,71 @@
-<div>
-    <p>Edit user form </p>
-</div>
-<div>
-    <div>
-        <form [formGroup]="edituserform" (ngSubmit)="onSubmit()">
-            <div>
-                <div>
-                    <label for="">name</label>
-                    <input type="text" formControlName="name" >
-                </div>
-                <div>
-                    <label for="">email</label>
-                    <input type="email" formControlName="email">
-                </div>
-                <!-- <div>
-                    <label for="">password</label>
-                    <input type="text" formControlName="password">
-                </div> -->
-                <div>
-                    <button type="submit">submit</button>
-                </div>
-            </div>
-        </form>
+<!-- Background Overlay (Modal) -->
+<div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+  
+    <!-- Edit User Form Container -->
+    <div class="bg-gray-800 text-white p-8 rounded-lg shadow-xl w-full max-w-md">
+      
+      <!-- Close Button -->
+      <div class="flex justify-end">
+        <button 
+          (click)="closeModal()" 
+          class="text-white text-xl font-bold hover:text-gray-400 focus:outline-none"
+        >
+          X
+        </button>
+      </div>
+  
+      <!-- Form Title -->
+      <h2 class="text-3xl font-bold text-center text-indigo-400 mb-6">Edit User</h2>
+  
+      <!-- Edit User Form -->
+      <form [formGroup]="edituserform" (ngSubmit)="onSubmit()">
+        
+        <!-- Name Field -->
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-300">Name</label>
+          <input 
+            type="text" 
+            formControlName="name" 
+            class="mt-2 w-full px-4 py-2 bg-gray-700 text-white rounded-md border border-gray-600 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            placeholder="Enter name"
+          />
+          <!-- Validation Errors -->
+          <div *ngIf="edituserform.get('name')?.touched && edituserform.get('name')?.invalid" class="text-red-500 text-sm mt-2">
+            <div *ngIf="edituserform.get('name')?.hasError('required')">Name is required</div>
+            <div *ngIf="edituserform.get('name')?.hasError('minlength')">Name must be at least 3 characters</div>
+          </div>
+        </div>
+  
+        <!-- Email Field -->
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
+          <input 
+            type="email" 
+            formControlName="email" 
+            class="mt-2 w-full px-4 py-2 bg-gray-700 text-white rounded-md border border-gray-600 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            placeholder="Enter email"
+          />
+          <!-- Validation Errors -->
+          <div *ngIf="edituserform.get('email')?.touched && edituserform.get('email')?.invalid" class="text-red-500 text-sm mt-2">
+            <div *ngIf="edituserform.get('email')?.hasError('required')">Email is required</div>
+            <div *ngIf="edituserform.get('email')?.hasError('email')">Please enter a valid email</div>
+          </div>
+        </div>
+  
+        <!-- Submit Button -->
+        <div class="flex justify-center">
+          <button 
+            type="submit" 
+            class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md transition-all duration-300 transform hover:scale-105 shadow-md"
+            [disabled]="edituserform.invalid"
+          >
+            Update User
+          </button>
+        </div>
+        
+      </form>
+  
     </div>
-</div>
+  
+  </div>
+  

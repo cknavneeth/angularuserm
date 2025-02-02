@@ -1,26 +1,53 @@
-
-<div>
-
-    <div>
-        <h1>
-            This is your home!Welcome back
-        </h1>
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex flex-col items-center justify-center p-8 relative">
+  
+    <!-- Profile Image at Top Right -->
+    <div class="absolute top-8 right-8">
+      <div class="relative">
+        <img 
+          [src]="uploadedImageUrl || 'https://via.placeholder.com/100'" 
+          alt="Profile " 
+          class="w-20 h-20 rounded-full border-4 border-indigo-500 shadow-xl object-cover transition duration-300 hover:scale-105"
+        />
+      </div>
     </div>
-    <div>
-        <h1>your EmailId:{{userEmail}}</h1>
-        <h1>interesting right</h1>
+  
+    <!-- Welcome Message -->
+    <div class="text-center">
+      <h1 class="text-5xl font-extrabold text-indigo-400 tracking-wide">Welcome Home Dear!</h1>
+      <p class="text-lg text-gray-300 mt-3 italic">Glad to have you back.</p>
     </div>
-   
-
-    <input type="file" (change)="onFileSelected($event)" />
-    <button (click)="uploadImage()">Upload Profile Image</button>
-
-
-
-    <div *ngIf="uploadedImageUrl">
-        <h2>Your Profile Image</h2>
-        <img [src]="uploadedImageUrl" alt="Profile Image" width="200" height="200" />
+  
+    <!-- User Email Display -->
+    <div class="bg-gray-800 p-6 rounded-xl shadow-lg mt-8 text-center w-full max-w-md">
+      <h1 class="text-2xl font-bold text-green-400">Your Email ID</h1>
+      <p class="text-lg text-gray-300 mt-2 tracking-wide">{{userEmail}}</p>
     </div>
-
-</div>
-
+  
+    <h1 class="text-lg text-yellow-400 mt-6 font-medium tracking-wide uppercase">Make it more personal with a profile picture</h1>
+  
+    <!-- File Upload Section -->
+    <div class="mt-6 flex flex-col items-center gap-5">
+      
+      <!-- Motivational Upload Message -->
+      <p class="text-md text-gray-300 font-semibold italic bg-gray-700 px-4 py-2 rounded-lg shadow-md">
+        Do you need a profile photo? Then why wait? Upload it now!
+      </p>
+  
+      <!-- Choose File Button -->
+      <label class="cursor-pointer bg-blue-600 hover:bg-blue-500 text-white px-5 py-3 rounded-lg flex items-center gap-3 shadow-md transition-all duration-300 transform hover:scale-105">
+        <input type="file" (change)="onFileSelected($event)" class="hidden" />
+        <span class="material-icons">attach_file</span> Choose File
+      </label>
+  
+      <!-- Upload Button -->
+      <button 
+        (click)="uploadImage()" 
+        class="bg-green-600 hover:bg-green-500 text-white px-5 py-3 rounded-lg flex items-center gap-3 shadow-md transition-all duration-300 transform hover:scale-105"
+      >
+        <span class="material-icons">cloud_upload</span> Upload Image
+      </button>
+    </div>
+    
+  </div>
+  
+  

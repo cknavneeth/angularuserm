@@ -2,11 +2,12 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { IUser } from '../../../shared/usermodel';
-import { addUser } from '../../store/admin/adminaction';
+import { addUser, getallusers } from '../../store/admin/adminaction';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-user',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.scss']
 })
@@ -19,7 +20,7 @@ export class AddUserComponent implements OnInit{
   ngOnInit(): void {
    
     this.adminaddform=this.fb.group({
-      name:['',[Validators.required]],
+      name:['',[Validators.required,Validators.minLength(3)]],
       email:['',[Validators.required,Validators.email]],
       password:['',[Validators.required]],
       confirmPassword:['',[Validators.required]]
@@ -56,6 +57,7 @@ export class AddUserComponent implements OnInit{
       }
       this.store.dispatch(addUser({user}))
       this.closeModal()
+      this.store.dispatch(getallusers())
     }else{
       this.adminaddform.markAllAsTouched()
     }

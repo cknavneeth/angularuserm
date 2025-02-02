@@ -13,3 +13,13 @@ export const isNotAuth: CanActivateFn = (route, state) => {
   }
   return true
 };
+
+export const authorizing:CanActivateFn=(route,state)=>{
+  const loginservice=inject(LoginserviceService)
+  const router =inject (Router)
+  if(loginservice.isAuthenticated()){
+    router.navigate(['/home'])
+    return false
+  }
+  return true
+}
