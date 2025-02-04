@@ -71,11 +71,16 @@
             placeholder="Re-enter password"
           />
           <div *ngIf="adminaddform.get('confirmPassword')?.touched && adminaddform.get('confirmPassword')?.invalid" class="text-red-500 text-sm mt-2">
-            <div *ngIf="adminaddform.get('confirmPassword')?.hasError('required')">Confirm Password is required</div>
-            <div *ngIf="adminaddform.hasError('mismatch') && adminaddform.get('confirmPassword')?.touched">
+            <div *ngIf="adminaddform.get('confirmPassword')?.hasError('required')">
+              Confirm Password is required
+            </div>
+            <div *ngIf="adminaddform.get('confirmPassword')?.hasError('notSame')">
               Passwords do not match
             </div>
           </div>
+          
+          
+          
         </div>
   
         <!-- Submit Button -->

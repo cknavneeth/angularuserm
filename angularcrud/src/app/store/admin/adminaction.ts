@@ -36,3 +36,6 @@ export const deleteUser=createAction('[admin dashboard] deleteUser',props<{email
 export const deleteUserSuccess=createAction('[admin dashboard] deleteUserSuccess',props<{email:string}>())
 
 export const deleteUserFailure=createAction('[admin dashboard] deleteUserSuccess',props<{error:string}>())
+
+
+export const adminlogout=createAction('[admin dashboard] adminlogout')

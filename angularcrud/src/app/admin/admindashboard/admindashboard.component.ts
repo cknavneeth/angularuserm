@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, inject, OnInit, Output, output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { deleteUser, getallusers } from '../../store/admin/adminaction';
+import { adminlogout, deleteUser, getallusers } from '../../store/admin/adminaction';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { selectadmin, selectadminerror, selectadminloading } from '../../store/admin/adminselector';
 import { CommonModule } from '@angular/common';
@@ -101,6 +101,16 @@ export class AdmindashboardComponent implements OnInit{
     });
   }
 
+
+  adminlogout(){
+    this.store.dispatch(adminlogout())
+  }
+
+  onretry(){
+    console.log('retry call ayo')
+    this.store.dispatch(getallusers())
+    console.log('naddakko vallom')
+  }
 
   
 }

@@ -82,11 +82,17 @@ exports.addusers=async(req,res)=>{
 
 
 exports.editUser=async(req,res)=>{
-    console.log('miraaaa')
+    
     try {
         console.log('edit cheyyan olla call backil vannu')
         const {_id,email,password,name}=req.body
         console.log(req.body,'kittitund')
+
+        const alreadyexist=await User.findOne({email})
+
+        if(alreadyexist){
+            return res.status(400).json({success:false,message:'email already exists'})
+        }
 
         const updateUser=await User.findByIdAndUpdate(_id,{
             name,

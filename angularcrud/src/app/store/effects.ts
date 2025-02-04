@@ -18,61 +18,68 @@ export class UserEffect {
         this.loginservice.signupUser(action.user).pipe(
           map((data) => {
             // localStorage.setItem('token', data.token);
-            console.log('signup token',data.token)
+            console.log('signup token', data.token);
             return actions.userRegistrationSuccess({ user: data.user });
           }),
-          catchError((err) => of(actions.userRegistrationError({ error: err })))
+          catchError((err) => {
+            console.log('back end error',err);
+            return of(actions.userRegistrationError({ error: err }));
+          })
         )
       )
     )
   );
 
-  userRegistrationSuccess$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(actions.userRegistrationSuccess),
-      tap(() => {
-        this.router.navigate(['/login']);
-      })
-    ), {dispatch: false}
+  userRegistrationSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.userRegistrationSuccess),
+        tap(() => {
+          this.router.navigate(['/login']);
+        })
+      ),
+    { dispatch: false }
   );
 
-
-
-  userLogin$=createEffect(()=>
+  userLogin$ = createEffect(() =>
     this.actions$.pipe(
-        ofType(actions.userLogin),
-        switchMap((action)=>
-            this.loginservice.loginUser(action.user).pipe(
-                map((data:any)=>{
-                    return actions.userLoginSuccess({token:data.token,email:data.email})
-                }),
-                catchError((err)=> of(actions.userLoginFailure({error:err})))
-            )
+      ofType(actions.userLogin),
+      switchMap((action) =>
+        this.loginservice.loginUser(action.user).pipe(
+          map((data: any) => {
+            return actions.userLoginSuccess({
+              token: data.token,
+              email: data.email,
+            });
+          }),
+          catchError((err) => of(actions.userLoginFailure({ error: err })))
         )
+      )
     )
-)
+  );
 
+  userLoginSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.userLoginSuccess),
+        tap((action) => {
+          localStorage.setItem('token', action.token);
+          localStorage.setItem('email', action.email);
+          this.router.navigate(['/home']);
+        })
+      ),
+    { dispatch: false }
+  );
 
-userLoginSuccess$=createEffect(()=>
-     this.actions$.pipe(
-      ofType(actions.userLoginSuccess),
-      tap((action)=>{
-        localStorage.setItem('token',action.token)
-        localStorage.setItem('email',action.email)
-        this.router.navigate(['/home'])
-      })
-     ),{dispatch:false}
-)
-
-
-userLogout$=createEffect(()=>
-  this.actions$.pipe(
-    ofType(actions.userLogout),
-    tap(()=>{
-      localStorage.removeItem('token')
-      this.router.navigate(['/login'])
-    })
-  ),{dispatch:false}
-)
-
+  userLogout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.userLogout),
+        tap(() => {
+          localStorage.removeItem('token');
+          this.router.navigate(['/login']);
+        })
+      ),
+    { dispatch: false }
+  );
 }

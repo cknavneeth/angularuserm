@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { IUser } from '../../../shared/usermodel';
 import { addUser, getallusers } from '../../store/admin/adminaction';
@@ -19,14 +19,15 @@ export class AddUserComponent implements OnInit{
 
   ngOnInit(): void {
    
-    this.adminaddform=this.fb.group({
-      name:['',[Validators.required,Validators.minLength(3)]],
-      email:['',[Validators.required,Validators.email]],
-      password:['',[Validators.required]],
-      confirmPassword:['',[Validators.required]]
-    })
-
-    this.adminaddform.setValidators(this.passwordMatchValidator);
+    this.adminaddform = this.fb.group(
+      {
+        name: ['', [Validators.required, Validators.minLength(3)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required]],
+        confirmPassword: ['', [Validators.required]]
+      },
+      { validators: this.checkPasswords } // ✅ Apply validator here
+    );
   }
 
   @Output() closeModalEvent=new EventEmitter<boolean>()
@@ -34,16 +35,18 @@ export class AddUserComponent implements OnInit{
   closeModal(){
     this.closeModalEvent.emit(false)
   }
+  checkPasswords: ValidatorFn = (group: AbstractControl) => {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
 
-  passwordMatchValidator(control:AbstractControl):ValidationErrors|null{
-    const password=control.get('password')
-    const confirmPassword=control.get('confirmPassword')
-
-    if(password&&confirmPassword&&password.value!==confirmPassword.value){
-      return {mismatch:true}
+    if (password && confirmPassword && password !== confirmPassword) {
+      group.get('confirmPassword')?.setErrors({ notSame: true }); 
+    } else {
+      group.get('confirmPassword')?.setErrors(null); 
     }
-    return null
-  }
+
+    return null; 
+  };
 
   onSubmit(){
     if(this.adminaddform.valid){

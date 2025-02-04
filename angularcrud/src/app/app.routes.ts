@@ -2,11 +2,15 @@ import { Routes } from '@angular/router';
 import { SignupComponent } from './userRegister/signup/signup.component';
 import { LoginComponent } from './userLogin/login/login.component';
 import { HomeComponent } from './userHome/home/home.component';
-import { authorizing, isNotAuth } from './guards/auth-guard.guard';
+import { adminauthorize, authorizing, isNotAuth } from './guards/auth-guard.guard';
 import { AdminloginComponent } from './admin/adminlogin/adminlogin.component';
 import { AdmindashboardComponent } from './admin/admindashboard/admindashboard.component';
 
 export const routes: Routes = [
+   {
+     path:'',
+     component:SignupComponent
+   },
    {
     path:'signup',
     component:SignupComponent,
@@ -25,7 +29,8 @@ export const routes: Routes = [
    },
    {
       path:'admin/login',
-      component:AdminloginComponent
+      component:AdminloginComponent,
+      canActivate:[adminauthorize]
    },{
       path:'admin/dashboard',
       component:AdmindashboardComponent

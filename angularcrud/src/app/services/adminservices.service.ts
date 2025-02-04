@@ -38,5 +38,10 @@ export class AdminservicesService {
     return this.http.put(`${this.api}/deleteuser`,{email})
   }
 
+
+  adminauthorize(){
+   const adminToken= localStorage.getItem('admintoken')
+    return adminToken? !this.jwtHelper.isTokenExpired(adminToken):false
+  }
   
 }

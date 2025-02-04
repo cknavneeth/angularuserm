@@ -106,4 +106,14 @@ export class AdminEffect {
     )
   )
 
+  adminlogout$=createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.adminlogout),
+      tap(()=>{
+        localStorage.removeItem('admintoken')
+        this.router.navigate(['/admin/login'])
+      })
+    ),{dispatch:false}
+  )
+
 }

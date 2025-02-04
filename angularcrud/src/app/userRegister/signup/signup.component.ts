@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -17,6 +17,9 @@ import { MatInputModule } from '@angular/material/input';
 import { LoginserviceService } from '../../services/loginservice.service';
 import { Store } from '@ngrx/store';
 import { userRegistration } from '../../store/action';
+import { Observable } from 'rxjs';
+import { selectError } from '../../store/selector';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -27,6 +30,7 @@ import { userRegistration } from '../../store/action';
     MatInputModule,
     MatIconModule,
     MatFormFieldModule,
+    RouterModule
   ],
   templateUrl: './signup.component.html',
 
@@ -36,15 +40,21 @@ export class SignupComponent implements OnInit {
   // ngOnInit(): void {
   //   console.log('SignupComponent initialized!'); // Add this log
   // }
+  private _store = inject(Store)
+  error$: Observable<string| null > = this._store.select(selectError)
   registrationForm!: FormGroup;
   registrationError: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
     private loginservice: LoginserviceService,
-    private store:Store
-  ) {}
+    // private store:Store
+  ) {
 
+  }
+
+
+  
   ngOnInit(): void {
     this.registrationForm = new FormGroup(
       {
@@ -94,6 +104,6 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     console.log('lll');
     
-     this.store.dispatch(userRegistration({user: this.registrationForm.value}))
+     this._store.dispatch(userRegistration({user: this.registrationForm.value}))
   }
 }

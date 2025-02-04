@@ -18,8 +18,10 @@ export function tokenGetter() {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideStore({ userState: userReducer }),
-    provideStore({ adminState:adminReducer }),
+    provideStore({
+      userState: userReducer,
+      adminState: adminReducer   
+    }),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
