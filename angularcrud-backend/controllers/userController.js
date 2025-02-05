@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 function generateToken(userId){
     console.log('secret und',process.env.JWT_SECRET);
     return jwt.sign({id:userId},process.env.JWT_SECRET,{
-        expiresIn:'2hr'
+        expiresIn:'20hr'
     })
 }
 exports.registerUser=async (req,res)=>{
@@ -71,14 +71,14 @@ exports.loginRegister=async(req,res)=>{
 
         let user=await User.findOne({email})
         if(!user){
-            return res.status(500).json({message:'user not registered'})
+            return res.status(400).json({message:'user not registered'})
         }
 
         const isValidPassword=await bcrypt.compare(password,user.password)
         console.log(isValidPassword);
         
         if(!isValidPassword){
-            return res.status(500).json({message:'password is not valid'})
+            return res.status(400).json({message:'password is not valid'})
         }
 
         let token=generateToken(user._id)
@@ -101,11 +101,11 @@ exports.saveProfileImage = async (req, res) => {
             return res.status(400).json({ error: 'Missing email or profileImage' });
         }
 
-        // Update user profile image in MongoDB
+        
         const result = await User.findOneAndUpdate(
             { email },
             { profileImage },
-            { new: true, upsert: true } // Upsert creates a new entry if not found
+            { new: true, upsert: true } 
         );
 
         res.json({ message: 'Profile image URL saved successfully', user: result });

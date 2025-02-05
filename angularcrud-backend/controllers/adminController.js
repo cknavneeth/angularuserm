@@ -19,7 +19,7 @@ exports.adminLogin=async(req,res)=>{
             return res.status(400).json({success:false,message:'password is not valid'})
         }
         const token=jwt.sign({id:isAdmin._id},process.env.JWT_SECRET,{
-            expiresIn:'2h'
+            expiresIn:'20h'
         })
         console.log(token);
         
@@ -34,7 +34,7 @@ exports.adminLogin=async(req,res)=>{
 
 exports.getallusers=async(req,res)=>{
     try {
-        const users=await User.find()
+        const users=await User.find().sort({createdAt:-1})
         return res.status(200).json({users})
     } catch (error) {
         return res.status(500).json({success:false,message:'something wrong occured'})
@@ -88,7 +88,7 @@ exports.editUser=async(req,res)=>{
         const {_id,email,password,name}=req.body
         console.log(req.body,'kittitund')
 
-        const alreadyexist=await User.findOne({email})
+        const alreadyexist=await User.findOne({email,_id:{$ne:_id}})
 
         if(alreadyexist){
             return res.status(400).json({success:false,message:'email already exists'})

@@ -6,11 +6,12 @@ import { environment } from '../../environment/environment';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { userLogout } from '../../store/action';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule,MatSnackBarModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit{
   private cloudinaryService = inject(CloudinaryserviceService);
   private http = inject(HttpClient);
   private store=inject(Store)
+  private snackBar=inject(MatSnackBar)
  
  
 
@@ -36,10 +38,18 @@ export class HomeComponent implements OnInit{
     this.http.get<{ profileImage: string }>(`${environment.apiurl}/getProfileImage?email=${this.userEmail}`)
       .subscribe(
         (response) => {
-          this.uploadedImageUrl = response.profileImage; // Set image URL
+          this.uploadedImageUrl = response.profileImage; 
+          this.snackBar.open('Profile image loaded successfully!', 'Close', {
+            duration: 3000, 
+            panelClass: ['success-snackbar'] 
+          });
         },
         (error) => {
           console.error('Error fetching profile image:', error);
+          this.snackBar.open('Failed to load profile image', 'Close', {
+            duration: 3000,
+            panelClass: ['error-snackbar']
+          });
         }
       );
   }
@@ -65,21 +75,6 @@ export class HomeComponent implements OnInit{
     }
   }
   
-  // saveImageUrlToMongoDB(imageUrl: string): void {
-  //   const userData = {
-  //     email: this.userEmail,
-  //     profileImage: imageUrl
-  //   };
-  
-  //   this.http.post(`${environment.apiurl}/saveProfileImage`, userData).subscribe(
-  //     (response) => {
-  //       console.log('Profile image URL saved to MongoDB:', response);
-  //     },
-  //     (error) => {
-  //       console.error('Error saving profile image URL to MongoDB:', error);
-  //     }
-  //   );
-  // }
   
 
 

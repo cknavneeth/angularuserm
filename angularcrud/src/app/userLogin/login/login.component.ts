@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { userLogin } from '../../store/action';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Observable } from 'rxjs';
+import { selectError } from '../../store/selector';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +16,12 @@ import { RouterModule } from '@angular/router';
 export class LoginComponent implements OnInit {
 loginForm!:FormGroup
 
+private store=inject(Store)
+
+error$:Observable<string|null>=this.store.select(selectError)
+
 constructor(private formBuilder:FormBuilder,
-  private store:Store
+  // private store:Store
 ){}
   
 
