@@ -38,7 +38,7 @@ export class AdmindashboardComponent implements OnInit{
 
   filteredUser$: Observable<any[]> = combineLatest([this.users, this.searchTerm]).pipe(
     map(([users, term]: [IUser[], string]) => {
-      if (!users) return []; // Ensure users is an array
+      if (!users) return [];
       if (!term) return users;
   
       return users.filter(user =>

@@ -21,7 +21,7 @@ export class EditUserComponent implements OnInit{
 
   constructor(private fb:FormBuilder ,private store:Store){
     this.edituserform=this.fb.group({
-      name:['',[Validators.required,Validators.minLength(3)]],
+      name:['',[Validators.required,Validators.minLength(3),Validators.pattern(/^[a-zA-Z\s]+$/)]],
       email:['',[Validators.required,Validators.email]],
     })
   }

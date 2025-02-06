@@ -33,6 +33,7 @@
           <div *ngIf="edituserform.get('name')?.touched && edituserform.get('name')?.invalid" class="text-red-500 text-sm mt-2">
             <div *ngIf="edituserform.get('name')?.hasError('required')">Name is required</div>
             <div *ngIf="edituserform.get('name')?.hasError('minlength')">Name must be at least 3 characters</div>
+            <div *ngIf="edituserform.get('name')?.hasError('pattern')">name only contains letters and spaces</div>
           </div>
         </div>
   

@@ -29,6 +29,7 @@
           <div *ngIf="adminaddform.get('name')?.touched && adminaddform.get('name')?.invalid" class="text-red-500 text-sm mt-2">
             <div *ngIf="adminaddform.get('name')?.hasError('required')">Name is required</div>
             <div *ngIf="adminaddform.get('name')?.hasError('minlength')">atleast 3 characters</div>
+            <div *ngIf="adminaddform.get('name')?.hasError('pattern')">name contain only letters and space</div>
           </div>
         </div>
   
@@ -83,7 +84,7 @@
           
         </div>
   
-        <!-- Submit Button -->
+        
         <div class="flex justify-center">
           <button 
             type="submit" 
@@ -93,6 +94,8 @@
             Submit
           </button>
         </div>
+
+
       </form>
   
     </div>

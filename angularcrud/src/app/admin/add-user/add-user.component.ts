@@ -21,12 +21,12 @@ export class AddUserComponent implements OnInit{
    
     this.adminaddform = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.minLength(3)]],
+        name: ['', [Validators.required, Validators.minLength(3),Validators.pattern(/^[a-zA-Z\s]+$/)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required]],
         confirmPassword: ['', [Validators.required]]
       },
-      { validators: this.checkPasswords } // ✅ Apply validator here
+      { validators: this.checkPasswords } 
     );
   }
 
